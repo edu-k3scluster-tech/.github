@@ -1,5 +1,13 @@
 name: Docker Build/Publish Image 
-on:  
+on:
+  workflow_call:
+    secrets:
+      KUBECONFIG_FILE:
+        required: true
+        description: k8s creds to deploy the code
+      GPG_PRIVATE_KEY:
+        required: true
+        description: private key to decrypt secret files using sops and gpg
   push:    
     branches:
       - main
@@ -50,7 +58,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-20.04
-    needs: docker
+    needs: build
     steps:
     - name: Checkout
       uses: actions/checkout@v2
