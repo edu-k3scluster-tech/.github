@@ -45,7 +45,7 @@ jobs:
     - name: Build an image
       uses: docker/build-push-action@v2
       with:
-        platforms: linux/arm
+        platforms: linux/arm64
         context: .
         push: true
         tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
